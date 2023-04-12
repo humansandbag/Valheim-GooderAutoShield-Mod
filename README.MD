@@ -44,8 +44,8 @@ Like this mod? Development requires a lot of coffee. Support me by buying me a c
 Copy `GooderAutoShield.dll` folder to `<GameDirectory>/BepInEx/plugins`.
 
 ## Changelog
-[GitHub Changelog]()
+[GitHub Changelog](https://github.com/humansandbag/Valheim-GooderAutoShield-Mod/blob/main/CHANGELOG.md)
 
 ## Mod Author Details
 Author: [HumanSandbag](https://github.com/humansandbag)  
-Source: [GitHub]()
+Source: [GitHub](https://github.com/humansandbag/Valheim-GooderAutoShield-Mod)
