@@ -58,7 +58,6 @@ if($Target.Equals("Release")) {
     Write-Host "Packaging for ThunderStore..."
     $Package="Package"
     $PackagePath="$ProjectPath\$Package"
-    $modName = "GooderAutoShield"
     $manifest = Get-Content -Raw manifest.json | ConvertFrom-Json
     $versionNumber = $manifest.version_number
 
@@ -67,7 +66,7 @@ if($Target.Equals("Release")) {
     Copy-Item -Path "$TargetPath\$TargetAssembly" -Destination "$PackagePath\MainStreetGaming-GooderAutoShield\$TargetAssembly" -Force
     Copy-Item -Path "README.md" -Destination "$PackagePath\README.md" -Force
     Copy-Item -Path "manifest.json" -Destination "$PackagePath\manifest.json" -Force
-    Compress-Archive -Path "$PackagePath\*" -DestinationPath "$TargetPath\$modName-$versionNumber.zip" -Force
+    Compress-Archive -Path "$PackagePath\*" -DestinationPath "$TargetPath\$name-$versionNumber.zip" -Force
 }
 
 # Pop Location

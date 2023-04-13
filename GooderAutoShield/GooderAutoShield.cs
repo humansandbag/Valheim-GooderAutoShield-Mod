@@ -347,6 +347,7 @@ namespace GooderAutoShield
                         {
                             if (currentShield != null) currentShield = null;
                             if (toggleUnequipShield == true) toggleUnequipShield = false;
+                            DebugLog("Two-handed weapon is equiped. Not equipping shield.");
                         }
                     }
 
