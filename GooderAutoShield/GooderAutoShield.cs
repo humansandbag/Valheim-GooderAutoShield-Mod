@@ -20,7 +20,7 @@ namespace GooderAutoShield
     {
         public const string PluginGUID = "MainStreetGaming.GooderAutoShield";
         public const string PluginName = "GooderAutoShield";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         public static ConfigEntry<bool> _instantEquip;
         public static ConfigEntry<bool> _autoUnequip;
@@ -342,19 +342,55 @@ namespace GooderAutoShield
                         {
                             toggleUnequipShield = true;
                         }
-                        // Reset if two - handed weapon is equiped
-                        else if (rightHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
+                    }
+
+                    // Check is a two-handed weapon is in either hand
+                    if (leftHandItem != null || rightHandItem != null)
+                    {
+                        if (leftHandItem != null)
                         {
+                            if (leftHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeaponLeft)
+                            {
+                                DebugLog(PluginName + ": Left Two-handed weapon is equipped.");
+                                if (currentShield != null) currentShield = null;
+                                if (toggleUnequipShield == true) toggleUnequipShield = false;
+                            }
+                        } else if (rightHandItem != null)
+                        {
+                            if (rightHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
+                            {
+                                DebugLog(PluginName + ": Right Two-handed weapon is equipped.");
+                                if (currentShield != null) currentShield = null;
+                                if (toggleUnequipShield == true) toggleUnequipShield = false;
+                            }
+                        }
+                    }
+
+                    // Check if left hand item is equipped and is not a shield
+                    if (leftHandItem != null)
+                    {
+                        if (leftHandItem.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Shield)
+                        {
+                            DebugLog(PluginName + ": Left hand equipped is not a shield.");
                             if (currentShield != null) currentShield = null;
                             if (toggleUnequipShield == true) toggleUnequipShield = false;
-                            DebugLog("Two-handed weapon is equiped. Not equipping shield.");
+                        }
+                    }
+
+                    if (rightHandItem != null)
+                    {
+                        if (rightHandItem.m_shared.m_itemType != ItemDrop.ItemData.ItemType.OneHandedWeapon)
+                        {
+                            DebugLog(PluginName + ": Right hand item equipped is not a one-handed weapon.");
+                            if (currentShield != null) currentShield = null;
+                            if (toggleUnequipShield == true) toggleUnequipShield = false;
                         }
                     }
 
                     // Check if the player has a one-handed weapon equipped but no shield
                     if (rightHandItem != null && leftHandItem == null &&
-                        rightHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon &&
-                        __instance.GetInventory().GetEquipedtems().FirstOrDefault(i => i.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield) == null)
+                    rightHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon &&
+                    __instance.GetInventory().GetEquipedtems().FirstOrDefault(i => i.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield) == null)
                     {
                         EquipLastOrBestShield(__instance);
                     }
@@ -370,11 +406,13 @@ namespace GooderAutoShield
                                     __instance.UnequipItem(currentShield, _instantEquip.Value);
                                     currentShield = null;
                                     toggleUnequipShield = false;
+                                    DebugLog(PluginName + ": Shield has been auto-unequipped.");
                                 }
                             }
                         }
                     }
                     //  Check if the player is currently not holding anything in their hands and currentShield is not null
+                    // Redundant
                     else if (leftHandItem == null && currentShield != null && rightHandItem == null)
                     {
                         if (currentShield != null) currentShield = null;
