@@ -20,7 +20,7 @@ namespace GooderAutoShield
     {
         public const string PluginGUID = "MainStreetGaming.GooderAutoShield";
         public const string PluginName = "GooderAutoShield";
-        public const string PluginVersion = "1.0.1";
+        public const string PluginVersion = "1.0.2";
 
         public static ConfigEntry<bool> _instantEquip;
         public static ConfigEntry<bool> _autoUnequip;
@@ -108,7 +108,7 @@ namespace GooderAutoShield
 
             DebugLog("Saving shield data for player: " + playerName);
 
-            File.WriteAllText(Path.Combine(Paths.ConfigPath, fileName), json); // Write to JSON file
+            File.WriteAllText(Path.Combine(BepInEx.Paths.ConfigPath, fileName), json); // Write to JSON file
         }
 
         // Load data from JSON
@@ -121,7 +121,7 @@ namespace GooderAutoShield
             DebugLog("Loading shield data for player: " + playerName);
 
             string fileName = playerName + "." + PluginName + ".json";
-            string filePath = Path.Combine(Paths.ConfigPath, fileName);
+            string filePath = Path.Combine(BepInEx.Paths.ConfigPath, fileName);
 
             if (File.Exists(filePath))
             {
@@ -390,7 +390,7 @@ namespace GooderAutoShield
                     // Check if the player has a one-handed weapon equipped but no shield
                     if (rightHandItem != null && leftHandItem == null &&
                     rightHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon &&
-                    __instance.GetInventory().GetEquipedtems().FirstOrDefault(i => i.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield) == null)
+                    __instance.GetInventory().GetEquippedItems().FirstOrDefault(i => i.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield) == null)
                     {
                         EquipLastOrBestShield(__instance);
                     }
