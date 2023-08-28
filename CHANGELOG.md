@@ -1,5 +1,9 @@
 ## Changelog:
 
+### v1.0.3
+- Fixed Null Reference Exception error when no shield is in the players inventory
+- Confirmed compatibility with Hildir's Request update
+
 ### v1.0.2
 - Updates for Valheim patch 0.216.9
 

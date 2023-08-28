@@ -20,7 +20,7 @@ namespace GooderAutoShield
     {
         public const string PluginGUID = "MainStreetGaming.GooderAutoShield";
         public const string PluginName = "GooderAutoShield";
-        public const string PluginVersion = "1.0.2";
+        public const string PluginVersion = "1.0.3";
 
         public static ConfigEntry<bool> _instantEquip;
         public static ConfigEntry<bool> _autoUnequip;
@@ -263,7 +263,7 @@ namespace GooderAutoShield
                         LoadData();
                         initialDataLoaded = true;
                         lastShield = __instance.m_inventory.GetItemAt(loadLastShieldGridPos.x, loadLastShieldGridPos.y);
-                        if (lastShield.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield)
+                        if (lastShield != null && lastShield.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield)
                         {
                             lastUsedShieldItemId = lastShield.m_shared.m_name;
                             DebugLog("Player In-game: Loaded Shield ID: " + lastShield.m_shared.m_name);
