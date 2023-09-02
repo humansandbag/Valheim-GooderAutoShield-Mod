@@ -1,11 +1,11 @@
 ﻿{
   "name": "GooderAutoShield",
   "description": "The ultimate solution for shield-wielding warriors who demand absolute control and unmatched efficiency in combat!",
-  "version_number": "1.0.3",
+  "version_number": "1.0.4",
   "website_url": "https://github.com/humansandbag/Valheim-GooderAutoShield-Mod",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2105",
-    "ValheimModding-Jotunn-2.12.6",
+    "ValheimModding-Jotunn-2.12.7",
     "Tekla-JsonDotNet-13.0.1"
   ]
 }

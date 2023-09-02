@@ -1,5 +1,9 @@
 ## Changelog:
 
+### 1.0.4
+- Fixed bug that prevented shield from auto-equipping after weapon and shield were hidden
+- Improved debug logging
+
 ### v1.0.3
 - Fixed Null Reference Exception error when no shield is in the players inventory
 - Confirmed compatibility with Hildir's Request update

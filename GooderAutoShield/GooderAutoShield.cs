@@ -20,7 +20,7 @@ namespace GooderAutoShield
     {
         public const string PluginGUID = "MainStreetGaming.GooderAutoShield";
         public const string PluginName = "GooderAutoShield";
-        public const string PluginVersion = "1.0.3";
+        public const string PluginVersion = "1.0.4";
 
         public static ConfigEntry<bool> _instantEquip;
         public static ConfigEntry<bool> _autoUnequip;
@@ -81,7 +81,7 @@ namespace GooderAutoShield
 
         public static void DebugLog(string data)
         {
-            if (_enableDebug.Value) Jotunn.Logger.LogInfo(data);
+            if (_enableDebug.Value) Jotunn.Logger.LogInfo(PluginName + ": " + data);
         }
 
         // Define a custom class to store the data
@@ -180,10 +180,7 @@ namespace GooderAutoShield
                 SaveData();
 
                 // Reset
-                currentShield = null;
-                lastShield = null;
-                lastUsedShieldItemId = "";
-                toggleUnequipShield = false;
+                ResetLastShield();
             }
         }
 
@@ -203,10 +200,7 @@ namespace GooderAutoShield
                     initialDataLoaded = false;
 
                     // Reset
-                    currentShield = null;
-                    lastShield = null;
-                    lastUsedShieldItemId = "";
-                    toggleUnequipShield = false;
+                    ResetLastShield();
                 }
             }
         }
@@ -274,6 +268,15 @@ namespace GooderAutoShield
                         }
                     }
 
+                    // Handle hidden items
+                    if (__instance.m_hiddenRightItem != null)
+                    {
+                        DebugLog("Right hand item is hidden.");
+                        if (currentShield != null) currentShield = null;
+                        if (toggleUnequipShield == true) toggleUnequipShield = false;
+                        return;
+                    }
+
                     ItemDrop.ItemData rightHandItem = __instance.GetRightItem();
                     ItemDrop.ItemData leftHandItem = __instance.GetLeftItem();
 
@@ -292,7 +295,7 @@ namespace GooderAutoShield
                         if (currentItem == null || currentItem.m_shared.m_name != lastUsedShieldItemId)
                         {
 
-                            DebugLog(PluginName + ": Last Shield not found... Must have been moved. Searching for it...");
+                            DebugLog("Last Shield not found... Must have been moved. Searching for it...");
 
                             // Get all the shields in the player's inventory (including the hotbar)
                             ItemDrop.ItemData[] shields = __instance.m_inventory.GetAllItems()
@@ -351,7 +354,7 @@ namespace GooderAutoShield
                         {
                             if (leftHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeaponLeft)
                             {
-                                DebugLog(PluginName + ": Left Two-handed weapon is equipped.");
+                                DebugLog("Left Two-handed weapon is equipped.");
                                 if (currentShield != null) currentShield = null;
                                 if (toggleUnequipShield == true) toggleUnequipShield = false;
                             }
@@ -359,7 +362,7 @@ namespace GooderAutoShield
                         {
                             if (rightHandItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
                             {
-                                DebugLog(PluginName + ": Right Two-handed weapon is equipped.");
+                                DebugLog("Right Two-handed weapon is equipped.");
                                 if (currentShield != null) currentShield = null;
                                 if (toggleUnequipShield == true) toggleUnequipShield = false;
                             }
@@ -371,7 +374,7 @@ namespace GooderAutoShield
                     {
                         if (leftHandItem.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Shield)
                         {
-                            DebugLog(PluginName + ": Left hand equipped is not a shield.");
+                            DebugLog("Left hand equipped is not a shield.");
                             if (currentShield != null) currentShield = null;
                             if (toggleUnequipShield == true) toggleUnequipShield = false;
                         }
@@ -381,7 +384,7 @@ namespace GooderAutoShield
                     {
                         if (rightHandItem.m_shared.m_itemType != ItemDrop.ItemData.ItemType.OneHandedWeapon)
                         {
-                            DebugLog(PluginName + ": Right hand item equipped is not a one-handed weapon.");
+                            DebugLog("Right hand item equipped is not a one-handed weapon.");
                             if (currentShield != null) currentShield = null;
                             if (toggleUnequipShield == true) toggleUnequipShield = false;
                         }
@@ -406,7 +409,7 @@ namespace GooderAutoShield
                                     __instance.UnequipItem(currentShield, _instantEquip.Value);
                                     currentShield = null;
                                     toggleUnequipShield = false;
-                                    DebugLog(PluginName + ": Shield has been auto-unequipped.");
+                                    DebugLog("Shield has been auto-unequipped.");
                                 }
                             }
                         }
@@ -468,6 +471,15 @@ namespace GooderAutoShield
                     }
                 }
             }
+        }
+
+        private static void ResetLastShield()
+        {
+            DebugLog("Resetting last shield.");
+            currentShield = null;
+            lastShield = null;
+            lastUsedShieldItemId = "";
+            toggleUnequipShield = false;
         }
     }
 }
