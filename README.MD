@@ -19,13 +19,13 @@ Like this mod? Development requires a lot of coffee. Support me by buying me a c
 
 ## How It Works
 - Automatic shield equip/unequip when equipping/unequipping a one-handed weapon
-- The last equiped shield is remembered as the preferred shield for autoequiping
+- The last equiped shield is remembered as the preferred shield for auto-equipping
 - Automatic selection of the shield with the highest block power if there is no memory of a last-used shield
 - Automatically searches the player inventory to find the last equipped shield if it was moved to another slot
-- If the last used shield has been dropped and a one-handed weapon is equiped, it automatically equips the strongest shield
-- After picking up your items from your tombstone, it automatically searches for the last used shield and equips it when a one-handed weapon is equiped
-- If your last used shield was not found after picking up your tombstone, it equips the strongest shield in the inventory when a one-handed weapon is equiped
-- If a one-handed weapon is equiped and no shield is in the players inventory, the first shield picked up will automatically equip
+- If the last used shield has been dropped and a one-handed weapon is equipped, it automatically equips the strongest shield
+- After picking up your items from your tombstone, it automatically searches for the last used shield and equips it when a one-handed weapon is equipped
+- If your last used shield was not found after picking up your tombstone, it equips the strongest shield in the inventory when a one-handed weapon is equipped
+- If a one-handed weapon is equipped and no shield is in the players inventory, the first shield picked up will automatically equip
 - Remembers last selected shield for multiple player profiles and loads the saved data on login
 - Two-handed weapon detection to prevent shield re-equip
 - Works with gamepads
